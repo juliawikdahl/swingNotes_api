@@ -67,3 +67,17 @@ exports.deleteNote = (req, res) => {
     res.sendStatus(204);
   });
 };
+
+exports.searchNotes = (req, res) => {
+    const query = req.query.query;
+    if (!query) {
+      return res.status(400).json({ error: 'Query parameter "query" is required' });
+    }
+    
+    Note.searchByTitle(query, (err, notes) => {
+      if (err) {
+        return res.status(500).json({ error: 'Internal server error' });
+      }
+      res.json(notes);
+    });
+  };

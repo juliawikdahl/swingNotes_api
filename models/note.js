@@ -23,6 +23,13 @@ class Note {
   static delete(id, callback) {
     db.remove({ _id: id }, {}, callback);
   }
+
+static searchByTitle(query, callback) { //  sökningen tillåter endast titlar som börjar med den angivna söksträngen.
+    const regex = new RegExp(`^${query}`, 'i'); 
+    db.find({ title: regex }, callback);
 }
+
+}
+
 
 module.exports = Note;

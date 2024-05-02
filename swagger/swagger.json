@@ -46,6 +46,27 @@
           }
         }
       },
+      "/api/notes/search": {
+        "get": {
+            "summary": "Sök efter anteckningar baserat på titel",
+            "parameters": [
+                {
+                    "name": "query",
+                    "in": "query",
+                    "required": true,
+                    "description": "Söksträng för att söka bland anteckningar baserat på titel",
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "Lyckad begäran. Returnerar en lista över anteckningar som matchar söksträngen."
+                }
+            }
+        }
+    },
       "/api/notes/{id}": {
         "get": {
             "summary": "Hämta en anteckning med specifikt ID",

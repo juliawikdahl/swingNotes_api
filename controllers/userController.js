@@ -45,7 +45,11 @@ exports.signup = (req, res) => {
         return res.status(404).json({ error: 'User not found' });
       }
   
+
       bcrypt.compare(password, user.password, (err, result) => {
+  
+        console.log('password 1', password)
+        console.log('password 2', user.password)
         if (err) {
           console.error('Error comparing passwords:', err);
           return res.status(500).json({ error: 'Internal server error' });
@@ -54,15 +58,17 @@ exports.signup = (req, res) => {
   
         if (!result) {
           console.log('Invalid password for user:', username);
+
           return res.status(401).json({ error: 'Invalid password' });
         }
   
-       
         const accessToken = jwt.sign({ username: user.username }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
         console.log('Generated access token:', accessToken);
   
-
+    
+       
         res.status(200).json({ accessToken });
+   
       });
     });
   };
