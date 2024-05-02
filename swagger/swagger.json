@@ -1,0 +1,189 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Swing Notes API",
+      "description": "API för att spara anteckningar",
+      "version": "1.0.0"
+    },
+    "paths": {
+      "/api/notes": {
+        "get": {
+          "summary": "Hämta anteckningar",
+          "responses": {
+            "200": {
+              "description": "Lyckad begäran. Returnerar en lista över alla anteckningar."
+            }
+          }
+        },
+        "post": {
+          "summary": "Spara en anteckning",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string",
+                      "maxLength": 50
+                    },
+                    "text": {
+                      "type": "string",
+                      "maxLength": 300
+                    }
+                  
+                  },
+                  "required": ["title", "text"]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Lyckad begäran. Returnerar den sparade anteckningen."
+            }
+          }
+        }
+      },
+      "/api/notes/{id}": {
+        "get": {
+            "summary": "Hämta en anteckning med specifikt ID",
+            "parameters": [
+              {
+                "name": "id",
+                "in": "path",
+                "required": true,
+                "description": "ID för den anteckning som ska hämtas",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Lyckad begäran. Returnerar den efterfrågade anteckningen."
+              }
+          }
+        },
+        "put": {
+            "summary": "Uppdatera en anteckning med specifikt ID",
+            "parameters": [
+              {
+                "name": "id",
+                "in": "path",
+                "required": true,
+                "description": "ID för den anteckning som ska uppdateras",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "requestBody": {
+              "required": true,
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "title": {
+                        "type": "string",
+                        "maxLength": 50
+                      },
+                      "text": {
+                        "type": "string",
+                        "maxLength": 300
+                      }
+                    },
+                    "required": ["title", "text"]
+                  }
+                }
+              }
+            },
+            "responses": {
+              "204": {
+                "description": "Lyckad begäran. Inga data returneras."
+              }
+          }
+        },
+        "delete": {
+            "summary": "Ta bort en anteckning med specifikt ID",
+            "parameters": [
+              {
+                "name": "id",
+                "in": "path",
+                "required": true,
+                "description": "ID för den anteckning som ska tas bort",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "responses": {
+              "204": {
+                "description": "Lyckad begäran. Inga data returneras."
+              }
+          }
+        }
+      },
+      "/api/user/signup": {
+        "post": {
+            "summary": "Skapa konto",
+            "requestBody": {
+              "required": true,
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "username": {
+                        "type": "string"
+                      },
+                      "password": {
+                        "type": "string"
+                      }
+                    },
+                    "required": ["username", "password"]
+                  }
+                }
+              }
+            },
+            "responses": {
+              "201": {
+                "description": "Lyckad begäran. Returnerar den skapade användaren."
+              }
+          }
+        }
+      },
+      "/api/user/login": {
+        "post": {
+            "summary": "Logga in",
+            "requestBody": {
+              "required": true,
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "username": {
+                        "type": "string"
+                      },
+                      "password": {
+                        "type": "string"
+                      }
+                    },
+                    "required": ["username", "password"]
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "Lyckad begäran. Returnerar ett access token."
+              }
+          }
+        }
+      }
+    }
+  }
+  
